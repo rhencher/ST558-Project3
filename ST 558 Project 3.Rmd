@@ -2,11 +2,11 @@
 title: "ST 558 Project 3"
 author: "Rachel Hencher and Yi Ren"
 date: "2022-11-02"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# This is a test
+# This is a test for a new branch
