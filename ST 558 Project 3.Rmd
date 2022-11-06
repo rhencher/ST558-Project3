@@ -9,4 +9,39 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# This is a test for a new branch
+# Load packages
+```{r packages}
+library(readr)
+library(dplyr)
+library(caret)
+```
+
+# Data
+## Read in and subset data
+```{r}
+OnlineNewsPopularity <- read_csv("OnlineNewsPopularity.csv")
+OnlineNewsPopularity$url <- NULL
+str(OnlineNewsPopularity)
+```
+channel <- function(x){
+  base <- “data_channel_is_”
+  data <- paste0(base,x) %>% noquote()
+  news <- OnlineNewsPopularity %>% filter(get(data) == 1)
+  return(news)
+}
+
+lifestyle <- channel(“lifestyle”)
+entertainment <- channel(“entertainment”)
+bus <- channel(“bus”)
+socmed <- channel(“socmed”)
+tech <- channel(“tech”)
+world <- channel(“world”)
+```
+
+## Split data into train and test subsets
+```{r}
+set.seed(216)
+intrain <- createDataPartition(lifestyle$shares, p= 0.7, list = FALSE)
+lifestyletrain <- lifestyle[intrain,]
+```
+lifestyletest <- lifestyle[-intrain,]
